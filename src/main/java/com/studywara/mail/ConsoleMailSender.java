@@ -1,4 +1,4 @@
-package com.studywara;/*
+package com.studywara.mail;/*
  * @created 11/09/2020 - 8:34 오후
  * @project studywara
  * @author ryan
