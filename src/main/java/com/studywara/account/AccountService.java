@@ -72,11 +72,11 @@ public class AccountService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String emailOrNickname) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(emailOrNickname);
-        if(account == null){
+        if (account == null) {
             account = accountRepository.findByNickname(emailOrNickname);
         }
 
-        if(account == null){
+        if (account == null) {
             throw new UsernameNotFoundException(emailOrNickname);
         }
         return new UserAccount(account);
@@ -92,9 +92,12 @@ public class AccountService implements UserDetailsService {
         account.setOccupation(profile.getOccupation());
         account.setBio(profile.getBio());
         account.setLocation(profile.getLocation());
-
-//        TODO 프로필 이미지 수정
+        account.setProfileImage(profile.getProfileImage());
         accountRepository.save(account);
-//        TODO 문제가 하나 더 있음
+    }
+
+    public void updatePassword(Account account, String newPassword) {
+        account.setPassword(passwordEncoder.encode(newPassword));
+        accountRepository.save(account);
     }
 }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Study-Group</title>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
@@ -17,9 +17,9 @@
     </style>
 </head>
 
-<nav th:fragment="main-nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" th:fragment="main-nav">
     <a class="navbar-brand" href="/" th:href="@{/}">
-        <img height="30" src="/images/logo_sm.png" width="30" alt="">
+        <img alt="" height="30" src="/images/logo_sm.png" width="30">
     </a>
     <button class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
         <span class="navbar-togller-icon"></span>
@@ -45,7 +45,7 @@
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" th:href="@{/notifications}">
-                    <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    <i aria-hidden="true" class="fa fa-bell-o"></i>
                 </a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -54,19 +54,23 @@
                 </a>
             </li>
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    <svg data-jdenticon-value="user127" th:data-jdenticon-value="${#authentication.name}" width="24" height="24" class="rounded border bg-light"></svg>
+                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                   id="userDropdown" role="button">
+                    <svg class="rounded border bg-light" data-jdenticon-value="user127"
+                         height="24" th:data-jdenticon-value="${#authentication.name}" th:if="${#strings.isEmpty(account?.profileImage)}"
+                         width="24"></svg>
+                    <img class="rounded border" height="24" th:if="${!#strings.isEmpty(account?.profileImage)}"
+                         th:src="${account.profileImage}" width="24"/>
                 </a>
-                <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
+                <div aria-labelledby="userDropdown" class="dropdown-menu dropdown-menu-sm-right">
                     <h6 class="dropdown-header">
                         <span sec:authentication="name">Username</span>
                     </h6>
                     <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
-                    <a class="dropdown-item" >스터디</a>
+                    <a class="dropdown-item">스터디</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
-                    <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+                    <form action="#" class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
                         <button class="dropdown-item" type="submit">로그아웃</button>
                     </form>
                 </div>
@@ -77,25 +81,29 @@
 
 <footer th:fragment="footer">
     <div class="row justify-content-center">
-        <img class="mb-2" src="/images/logo_long_kr.jpg" alt="" width="100">
+        <img alt="" class="mb-2" src="/images/logo_long_kr.jpg" width="100">
         <small class="d-block mb-3 text-muted">&copy; 2020</small>
     </div>
 </footer>
 
 
-<div th:fragment="settings-menu (currentMenu)" class="list-group">
-    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'profile'} ? active" href="#" th:href="@{/settings/profile}">프로필</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'password'} ? active" href="#" th:href="@{/settings/password}">패스워드</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'notifications'} ? active" href="#" th:href="@{/settings/notifications}">알림</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'tags'} ? active" href="#" th:href="@{/settings/tags}">관심 주제</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'zones'} ? active" href="#" th:href="@{/settings/zones}">활동 지역</a>
-    <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu == 'account'} ? active" href="#" th:href="@{/settings/account}">계정</a>
+<div class="list-group" th:fragment="settings-menu (currentMenu)">
+    <a class="list-group-item list-group-item-action" href="#" th:classappend="${currentMenu == 'profile'} ? active"
+       th:href="@{/settings/profile}">프로필</a>
+    <a class="list-group-item list-group-item-action" href="#" th:classappend="${currentMenu == 'password'} ? active"
+       th:href="@{/settings/password}">패스워드</a>
+    <a class="list-group-item list-group-item-action" href="#"
+       th:classappend="${currentMenu == 'notifications'} ? active" th:href="@{/settings/notifications}">알림</a>
+    <a class="list-group-item list-group-item-action" href="#" th:classappend="${currentMenu == 'tags'} ? active"
+       th:href="@{/settings/tags}">관심 주제</a>
+    <a class="list-group-item list-group-item-action" href="#" th:classappend="${currentMenu == 'zones'} ? active"
+       th:href="@{/settings/zones}">활동 지역</a>
+    <a class="list-group-item list-group-item-action list-group-item-danger"
+       href="#" th:classappend="${currentMenu == 'account'} ? active" th:href="@{/settings/account}">계정</a>
 </div>
 
 
-
-
-<script type="application/javascript" th:fragment="form-validation">
+<script th:fragment="form-validation" type="application/javascript">
     (function () {
         'use strict'
 
