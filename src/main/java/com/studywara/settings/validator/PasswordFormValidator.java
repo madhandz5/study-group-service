@@ -1,9 +1,10 @@
-package com.studywara.settings;/*
+package com.studywara.settings.validator;/*
  * @created 16/09/2020 - 3:01 오후
  * @project studywara
  * @author ryan
  */
 
+import com.studywara.settings.form.PasswordForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

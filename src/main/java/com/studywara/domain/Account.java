@@ -48,9 +48,9 @@ public class Account {
     @Lob @Basic(fetch = FetchType.EAGER)
     private String profileImage;
 
-    private boolean studyCreateByEmail;
+    private boolean studyCreatedByEmail;
 
-    private boolean studyCreateByWeb;
+    private boolean studyCreatedByWeb;
 
     private boolean studyEnrollmentResultByEmail;
 
