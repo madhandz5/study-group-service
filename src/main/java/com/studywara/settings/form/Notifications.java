@@ -4,9 +4,7 @@ package com.studywara.settings.form;/*
  * @author ryan
  */
 
-import com.studywara.domain.Account;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class Notifications {

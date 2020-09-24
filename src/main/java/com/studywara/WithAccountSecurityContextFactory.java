@@ -31,6 +31,7 @@ public class WithAccountSecurityContextFactory implements WithSecurityContextFac
         accountService.processNewAccount(signUpForm);
 
 
+
         UserDetails principal = accountService.loadUserByUsername(nickname);
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal, principal.getPassword(), principal.getAuthorities());
         SecurityContext context = SecurityContextHolder.createEmptyContext();

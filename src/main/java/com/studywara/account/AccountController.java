@@ -117,7 +117,7 @@ public class AccountController {
 
         accountService.sendLoginLink(account);
         attributes.addFlashAttribute("message", "이메일 인증 메일을 발송했습니다.");
-        return "redirect:/email-login";
+        return "redirect:/account/email-login";
      }
 
      @GetMapping("login-by-email")

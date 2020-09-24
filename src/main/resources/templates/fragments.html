@@ -6,6 +6,7 @@
     <title>Study-Group</title>
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/node_modules/@yaireo/tagify/dist/tagify.css" rel="stylesheet"/>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
@@ -13,6 +14,11 @@
     <style>
         .container {
             max-width: 100%;
+        }
+        .tagify-outside{
+            border: 0;
+            padding: 0;
+            margin: 0;
         }
     </style>
 </head>
@@ -54,10 +60,12 @@
                 </a>
             </li>
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                   href="#"
                    id="userDropdown" role="button">
                     <svg class="rounded border bg-light" data-jdenticon-value="user127"
-                         height="24" th:data-jdenticon-value="${#authentication.name}" th:if="${#strings.isEmpty(account?.profileImage)}"
+                         height="24" th:data-jdenticon-value="${#authentication.name}"
+                         th:if="${#strings.isEmpty(account?.profileImage)}"
                          width="24"></svg>
                     <img class="rounded border" height="24" th:if="${!#strings.isEmpty(account?.profileImage)}"
                          th:src="${account.profileImage}" width="24"/>
