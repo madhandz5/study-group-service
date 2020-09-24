@@ -6,6 +6,7 @@ package com.studywara.account;/*
 
 import com.studywara.domain.Account;
 import com.studywara.domain.Tag;
+import com.studywara.domain.Zone;
 import com.studywara.settings.form.Notifications;
 import com.studywara.settings.form.Profile;
 import lombok.RequiredArgsConstructor;
@@ -130,5 +131,20 @@ public class AccountService implements UserDetailsService {
     public void removeTag(Account account, Tag tag) {
         Optional<Account> byId = accountRepository.findById(account.getId());
         byId.ifPresent(a -> a.getTags().remove(tag));
+    }
+
+    public Set<Zone> getZones(Account account) {
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        return byId.orElseThrow().getZones();
+    }
+
+    public void addZone(Account account, Zone zone){
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        byId.ifPresent(a->a.getZones().add(zone));
+    }
+
+    public void removeZone(Account account, Zone zone){
+        Optional<Account> byId = accountRepository.findById(account.getId());
+        byId.ifPresent(a->a.getZones().remove(zone));
     }
 }
